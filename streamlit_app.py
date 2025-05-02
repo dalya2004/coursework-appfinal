@@ -15,3 +15,7 @@ page = st.sidebar.radio(
     ["Overview", "Sustainability Insights", "Low Sustainability Schools", "Average Transport Mode"]
 )
 
+if page == "Overview":
+    st.header("School Travel Insights")
+    st.subheader("Explore How Students Travel Across the UK")
+    st.caption("Explore how students in Leeds travel to school!")
