@@ -44,3 +44,44 @@ if not filtered_df.empty:
     col1, col2 = st.columns(2)
     col1.metric("Total Students", f"{total_students}")
     col2.metric("Top Transport Mode", f"{top_mode}", f"{top_value} students")
+
+    # Get the travel counts once
+existing_columns = [col for col in travel_columns if col in filtered_df.columns]
+if existing_columns:
+    travel_counts = filtered_df[existing_columns].iloc[0].dropna().sort_values(ascending=False)
+
+    #radio button for user option into which chart to select
+    chart_type = st.radio("Select chart type:", ['Bar Chart', 'Pie Chart'])
+
+    if chart_type == "Bar Chart":
+        st.subheader("Student Travel - Bar Chart")
+        st.bar_chart(travel_counts)
+
+    elif chart_type == "Pie Chart":
+        st.subheader("Student Travel - Pie Chart")
+        total = travel_counts.sum()
+        percentages = (travel_counts / total) * 100
+        main_slices = travel_counts[percentages > 2]
+        other = travel_counts[percentages <= 2].sum()
+        if other > 0:
+            main_slices["Other"] = other
+
+        if len(main_slices) < 2:
+            st.warning("Not enough data to display a pie chart. Try another school.")
+        else:
+            fig, ax = plt.subplots()
+            ax.pie(
+                main_slices,
+                labels=main_slices.index,
+                autopct='%1.1f%%',
+                startangle=90,
+                #adgusted so user can read this without them overlapping
+                textprops={'fontsize': 8},
+                labeldistance=1.2,
+                pctdistance=0.9,
+                wedgeprops={'width': 0.95}
+            )
+            ax.axis('equal')
+            st.pyplot(fig)
+else:
+    st.warning("No transport data available to display.")
