@@ -19,3 +19,12 @@ if page == "Overview":
     st.header("School Travel Insights")
     st.subheader("Explore How Students Travel Across the UK")
     st.caption("Explore how students in Leeds travel to school!")
+
+    #dropdown list for user to select school
+    school_names = df['School Name'].dropna().unique()
+    selected_school = st.selectbox("Select a School", sorted(school_names))
+    filtered_df = df[df['School Name'] == selected_school]
+
+    #displays the data
+    st.subheader(f"Travel Data for {selected_school}")
+    st.write(filtered_df)
