@@ -153,7 +153,7 @@ elif page == "Low Sustainability Schools":
 elif page == "Average Transport Mode":
     st.header("Average Transport Mode Across All Schools")
     #description of page
-    st.caption("This page explores the average student travel patterns across Leeds schools.")
+    st.caption("This page explores the average student travel modes across all Leeds schools.")
 
     #my average calculation 
     avg_transport = df[travel_columns].mean().sort_values(ascending=False)
@@ -162,7 +162,19 @@ elif page == "Average Transport Mode":
     #bar chart based on the avergage calc 
     st.bar_chart(avg_transport)
 
-    
+    if st.checkbox("Show as Pie Chart"):
+        fig, ax = plt.subplots()
+        ax.pie(
+            avg_transport,
+            labels=avg_transport.index,
+            autopct='%1.1f%%',
+            startangle=90,
+            textprops={'fontsize': 8},
+            wedgeprops={'width': 0.95}
+        )
+        ax.axis('equal')
+        st.pyplot(fig)
+
 
 
 
