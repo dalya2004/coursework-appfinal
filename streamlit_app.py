@@ -170,7 +170,7 @@ elif page == "Average Transport Mode":
             autopct='%1.1f%%',
             startangle=90,
             textprops={'fontsize': 8},
-            labeldistance=3,
+            labeldistance=1.7,
             wedgeprops={'width': 0.95}
         )
         ax.axis('equal')
