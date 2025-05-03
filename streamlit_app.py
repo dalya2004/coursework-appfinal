@@ -185,6 +185,13 @@ if st.checkbox("Show as Pie Chart"):
     ax.axis('equal')
     st.pyplot(fig)
 
+    most_popular = avg_transport.idxmax()
+    least_popular = avg_transport.idxmin()
+
+    st.subheader("Most and Least Popular Transport Modes")
+    st.success(f"The most popular mode of transport is **{most_popular}**.")
+    st.warning(f"The least popular mode of transport is **{least_popular}**.")
+
 
 
 
