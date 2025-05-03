@@ -163,7 +163,7 @@ elif page == "Average Transport Mode":
     st.bar_chart(avg_transport)
 
     if st.checkbox("Show as Pie Chart"):
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(9,9))
         ax.pie(
             avg_transport,
             labels=avg_transport.index,
