@@ -149,6 +149,11 @@ elif page == "Low Sustainability Schools":
     else:
         st.success("No schools fall below the threshhold, (adgust threshold)")
 
+#4th page: Average Transport Mode
+elif page == "Average Transport Mode":
+    st.header("Average Transport Mode Across All Schools")
+    #description of page
+    st.caption("This page explores the average student travel patterns across Leeds schools.")
     
 
 
