@@ -162,19 +162,29 @@ elif page == "Average Transport Mode":
     #bar chart based on the avergage calc 
     st.bar_chart(avg_transport)
 
-    if st.checkbox("Show as Pie Chart"):
-        fig, ax = plt.subplots(figsize=(9,9))
-        ax.pie(
-            avg_transport,
-            labels=avg_transport.index,
-            autopct='%1.1f%%',
-            startangle=90,
-            textprops={'fontsize': 8},
-            labeldistance=1.35,
-            wedgeprops={'width': 0.95}
-        )
-        ax.axis('equal')
-        st.pyplot(fig)
+if st.checkbox("Show as Pie Chart"):
+    #grouping small slices into 'other"
+    total = avg_transport.sum()
+    percentages = (avg_transport / total) * 100
+    #Keeping only slices >3%
+    main_slices = avg_transport[percentages > 3] 
+    other = avg_transport[percentages <= 3].sum()
+    if other > 0:
+        main_slices["Other"] = other
+
+    fig, ax = plt.subplots(figsize=(9, 9))
+    ax.pie(
+        main_slices,
+        labels=main_slices.index,
+        autopct='%1.1f%%',
+        startangle=90,
+        textprops={'fontsize': 10},
+        labeldistance=1.2,
+        wedgeprops={'width': 0.95}
+    )
+    ax.axis('equal')
+    st.pyplot(fig)
+
 
 
 
