@@ -123,6 +123,34 @@ elif page == "Sustainability Insights":
     avg_eco = df['Eco-Friendly %'].mean()
     st.info(f"**Average eco-friendly travel rate across all Leeds schools:** {avg_eco:.1f}%")
 
+#third page: Low Sustainability Schools
+elif page == "Low Sustainability Schools":
+    st.header("Low Sustainability Schools")
+
+    low_threshold = 30 #my threshhold for low sustainability
+    low_sustain = df[df['Eco-Friendly %'] < low_threshold].copy()
+
+    if not low_sustain.empty:
+        st.warning(f"These schools have less than {low_threshold}% of students walking or cycling to school.")
+
+        #gives user the option to view all or just the bottom 5
+        view_option = st.radio("Display Options", ["All Low-Sustainability Schools", "Bottom 5 Only"], horizontal=True)
+
+        if view_option == "Bottom 5 Only":
+            low_sustain = low_sustain.sort_values(by='Eco-Friendly %').head(5)
+
+        #displays table
+        st.subheader("Low Sustainability Schools List")
+        st.dataframe(low_sustain[['School Name', 'Eco-Friendly %']].reset_index(drop=True))
+
+        #bar chart for visualisation
+        st.subheader("Lowest Eco-Friendly Rates")
+        st.bar_chart(low_sustain.set_index('School Name')['Eco-Friendly %'])
+    else:
+        st.success("No schools fall below the threshhold, (adgust threshold)")
+
+    
+
 
 
     
