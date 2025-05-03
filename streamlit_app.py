@@ -154,6 +154,14 @@ elif page == "Average Transport Mode":
     st.header("Average Transport Mode Across All Schools")
     #description of page
     st.caption("This page explores the average student travel patterns across Leeds schools.")
+
+    #my average calculation 
+    avg_transport = df[travel_columns].mean().sort_values(ascending=False)
+
+    st.subheader("Average Student Travel Mode Distribution")
+    #bar chart based on the avergage calc 
+    st.bar_chart(avg_transport)
+
     
 
 
