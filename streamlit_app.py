@@ -104,6 +104,10 @@ elif page == "Sustainability Insights":
     #top 3 eco friendly schools
     top_3_eco = df[['School Name', 'Eco-Friendly %']].sort_values(by='Eco-Friendly %', ascending=False).head(3)
     top_3_eco = top_3_eco.reset_index(drop=True)
+    #making it starts from 1 instead of 0 (problem found during testing)
+    top_3_eco.index += 1 
+    #naming the column rank
+    top_3_eco.index.name = 'Rank'
     
     
     st.subheader("Top 3 Eco-Friendly Schools")
