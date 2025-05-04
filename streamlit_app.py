@@ -106,12 +106,29 @@ elif page == "Sustainability Insights":
     top_3_eco = top_3_eco.reset_index(drop=True)
     
     
-
     st.subheader("Top 3 Eco-Friendly Schools")
     st.dataframe(top_3_eco)
     #bar chart for ecofriendly schools
     bar_chart_data = top_3_eco.copy().set_index('School Name')
     st.bar_chart(bar_chart_data['Eco-Friendly %'])
+
+    #slider for user to be able to filter the schools with certain eco friendly %
+    st.subheader("Filter Schools by Eco-Friendly % Range")
+
+    min_percent, max_percent = st.slider(
+    "Please select Eco-Friendly % Range",
+    0, 100, (0, 100)
+)
+    #filtering the data frame based on the slider 
+    filtered_schools = df[(df['Eco-Friendly %'] >= min_percent) & (df['Eco-Friendly %'] <= max_percent)]
+
+    st.write(f"Showing schools with Eco-Friendly % between {min_percent}% and {max_percent}%:")
+
+    if not filtered_schools.empty:
+        st.dataframe(filtered_schools[['School Name', 'Eco-Friendly %']].sort_values(by='Eco-Friendly %', ascending=False).reset_index(drop=True))
+    else:
+        st.info("No schools found in this range.")
+
 
     #sustainable vs non sustainable schools 
     sustainable = df[df['Eco-Friendly %'] > 50]
