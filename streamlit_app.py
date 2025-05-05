@@ -215,8 +215,3 @@ elif page == "Average Transport Mode":
     st.success(f"The most popular mode of transport is **{most_popular}**.")
     st.warning(f"The least popular mode of transport is **{least_popular}**.")
 
-
-
-
-
-    
